@@ -29,5 +29,5 @@ public class CervejasController {
 		System.out.println("sku: " + cerveja.getSku());
 		return "redirect:/cervejas/novo";
 	}
-
+	
 }
