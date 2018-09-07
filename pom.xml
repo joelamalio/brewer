@@ -21,18 +21,30 @@
 		<flyway-maven-plugin.version>4.0.2</flyway-maven-plugin.version>
 		<postgres.driver.version>9.1-901.jdbc4</postgres.driver.version>
 
+		<!-- Spring MVC -->
 		<spring-framework.version>4.3.0.RELEASE</spring-framework.version>
 		
+		<!-- Servlet API -->
 		<servlet.version>3.1.0</servlet.version>
 		
+		<!-- Thymeleaf -->
 		<thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
+		
+		<!-- Bean Validation / Hibernate Validator -->
+		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
+		
+		<!-- Thymeleaf - Layout Dialect -->
 		<thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
 		
+		<!-- Logging -->
 		<log4j.version>2.6</log4j.version>
 		<jcl-over-slf4j.version>1.7.21</jcl-over-slf4j.version>
 		
-		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
+		<!-- JPA / Hibernate -->
 		<hibernate.version>5.1.0.Final</hibernate.version>
+		
+		<!-- Spring Data JPA -->
+		<spring-data-jpa.version>1.10.2.RELEASE</spring-data-jpa.version>
 	</properties>
 
 	<build>
@@ -103,6 +115,14 @@
 			<version>${thymeleaf.version}</version>
 		</dependency>
 		
+		<!-- Bean Validator / Hibernate Validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate-validator.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
 		<!-- Thymeleaf - Layout Dialect -->
 		<dependency>
 			<groupId>nz.net.ultraq.thymeleaf</groupId>
@@ -132,14 +152,6 @@
 			<version>${jcl-over-slf4j.version}</version>
 		</dependency>
 		
-		<!-- Bean Validator / Hibernate Validator -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>${hibernate-validator.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		
 		<!-- JPA / Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -160,6 +172,14 @@
 		    <artifactId>postgresql</artifactId>
 		    <version>${postgres.driver.version}</version>
 		    <scope>provided</scope>
+		</dependency>
+		
+		<!-- Spring Data JPA -->
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-jpa</artifactId>
+		    <version>${spring-data-jpa.version}</version>
+		    <scope>compile</scope>
 		</dependency>
 		
 	</dependencies>
