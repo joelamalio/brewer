@@ -15,12 +15,16 @@ import br.com.joelamalio.brewer.model.Cerveja;
 import br.com.joelamalio.brewer.model.Origem;
 import br.com.joelamalio.brewer.model.Sabor;
 import br.com.joelamalio.brewer.repository.Estilos;
+import br.com.joelamalio.brewer.service.CadastroCervejaService;
 
 @Controller
 public class CervejasController {
 	
 	@Autowired
 	private Estilos estilos;
+	
+	@Autowired
+	private CadastroCervejaService cadastroCervejaService;
 	
 	@RequestMapping("/cervejas/novo")
 	public ModelAndView novo(Cerveja cerveja) {
@@ -33,12 +37,12 @@ public class CervejasController {
 	
 	@RequestMapping(value = "/cervejas/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult result, Model model, RedirectAttributes attributes) {
-		/*if (result.hasErrors()) {			
+		if (result.hasErrors()) {			
 			return novo(cerveja);
-		}*/
+		}
 		
+		cadastroCervejaService.salvar(cerveja);
 		attributes.addFlashAttribute("mensagem", "Cerveja salva com sucesso!");
-		System.out.println("sku: " + cerveja.getSku());
 		return new ModelAndView("redirect:/cervejas/novo");
 	}
 	
