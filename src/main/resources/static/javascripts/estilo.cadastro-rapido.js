@@ -4,15 +4,15 @@ Brewer.EstiloCadastroRapido = (function() {
 	
 	function EstiloCadastroRapido() {
 		this.modal = $('#modalCadastroRapidoEstilo');
-		this.botaoSalvar = modal.find('.js-modal-cadastro-estilo-salvar-btn');
-		this.form = modal.find('form');
-		this.url = form.attr('action');
+		this.botaoSalvar = this.modal.find('.js-modal-cadastro-estilo-salvar-btn');
+		this.form = this.modal.find('form');
+		this.url = this.form.attr('action');
 		this.inputNomeEstilo = $('#nomeEstilo');
 		this.containerMensagemErro = $('.js-mensagem-cadastro-rapido-estilo');
 		
 	}
 	
-	EstiloCadastroRapido.prototype.iniciar() = function() {
+	EstiloCadastroRapido.prototype.iniciar = function() {
 		this.form.on('submit', function(event) { event.preventDefault(); });
 		this.modal.on('shown.bs.modal', onModalShow.bind(this));
 		this.modal.on('hide.bs.modal', onModalClose.bind(this));
