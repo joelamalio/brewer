@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.joelamalio.brewer.storage.FotoStorage;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.name.Rename;
 
 public class FotoStorageLocal implements FotoStorage {
 	
@@ -53,6 +55,30 @@ public class FotoStorageLocal implements FotoStorage {
 			return Files.readAllBytes(this.localTemporario.resolve(nome));
 		} catch (IOException e) {
 			throw new RuntimeException("Erro ao ler a foto temporária", e);
+		}
+	}
+	
+	@Override
+	public void salvar(String foto) {
+		try {
+			Files.move(localTemporario.resolve(foto), local.resolve(foto));
+		} catch (IOException e) {
+			throw new RuntimeException("Erro ao mover a foto para o destino final", e);
+		}
+		
+		try {
+			Thumbnails.of(this.local.resolve(foto).toString()).size(40, 68).toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+		} catch (IOException e) {
+			throw new RuntimeException("Erro ao gerar o thumbnail", e);
+		}
+	}
+	
+	@Override
+	public byte[] recuperar(String nome) {
+		try {
+			return Files.readAllBytes(this.local.resolve(nome));
+		} catch (IOException e) {
+			throw new RuntimeException("Erro ao ler a foto ", e);
 		}
 	}
 	
