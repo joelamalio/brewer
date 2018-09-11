@@ -115,3 +115,14 @@
 .table-cervejas-col-acoes {
 	width: 80px;
 }
+
+.table-estilos-col-codigo {
+	width: 30px;
+	text-align: center;
+}
+
+.table-estilos-col-nome {}
+
+.table-estilos-col-acoes {
+	width: 80px;
+}
