@@ -39,10 +39,35 @@ Brewer.MaskPhoneNumber = (function() {
 	
 }());
 
+Brewer.MaskCepNumber = (function() {
+	
+	function MaskCepNumber() {
+		this.inputCepNumber = $('.js-cep-number');
+	}
+	
+	MaskCepNumber.prototype.enable = function() {
+		var maskBehavior = "00000-000";
+		
+		var options = {
+			onKeyPress: function(val, e, field, options) {
+				field.mask(maskBehavior, options);
+			}
+		};
+		
+		this.inputCepNumber.mask(maskBehavior, options);
+	}
+	
+	return MaskCepNumber;
+	
+})();
+
 $(function() {
 	var maskMoney = new Brewer.MaskMoney();
 	maskMoney.enable();
 
 	var maskPhoneNumber = new Brewer.MaskPhoneNumber();
 	maskPhoneNumber.enable();
+	
+	var maskCepNumber = new Brewer.MaskCepNumber();
+	maskCepNumber.enable();
 });
