@@ -7,9 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "estado")
@@ -20,13 +17,7 @@ public class Estado implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-
-	@NotBlank(message = "O nome é obrigatório")
-	@Size(max = 15, message = "O tamanho do nome deve estar entre 1 e 50")
 	private String nome;
-
-	@NotBlank(message = "A sigla é obrigatória")
-	@Size(min = 2, max = 2, message = "O tamanho da sigla deve ser 2")
 	private String sigla;
 
 	public Long getCodigo() {

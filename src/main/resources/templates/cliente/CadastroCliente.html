@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymelaf/layout"
 	xmlns:data="http://www.thymeleaf.org/extras/data"
-	layout:decorate="layout/LayoutPadrao">
+	layout:decorate="~{layout/LayoutPadrao}">
 <head>
 	<title>Cadastro de cliente</title>
 </head>
@@ -19,7 +19,7 @@
 
 	<div class="container-fluid">
 
-		<form method="POST" th:object="${cliente}" class="form-vertical  js-form-loading">
+		<form method="POST" class="form-vertical  js-form-loading">
 		
 			<div class="form-group">
 				<label for="nome">Nome</label>
@@ -110,9 +110,15 @@
 				<div class="col-sm-4">
 					<div class="form-group">
 						<label for="cidade">Cidade</label>
-						<select id="cidade" class="form-control">
-							<option value="">Selecione a cidade</option>
-						</select>
+						<div class="bw-field-action">
+							<select id="cidade" class="form-control" data:url="@{/cidades}" disabled>
+								<option value="">Selecione a cidade</option>
+							</select>
+
+							<div class="bw-field-action__icon js-img-loading" style="display: none;">
+								<img th:src="@{/images/mini-loading.gif}" />
+							</div>						
+						</div>
 					</div>
 				</div>
 			</div>
@@ -128,6 +134,7 @@
 
 <th:block layout:fragment="javascript-extra">
 	<script th:src="@{/javascripts/cliente.mascara-cpf-cnpj.js}"></script>
+	<script th:src="@{/javascripts/cliente.combo-estado-cidade.js}"></script>
 </th:block>
 
 </body>
