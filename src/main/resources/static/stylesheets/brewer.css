@@ -75,7 +75,7 @@
 
 /*
 ###################
-# PÁGINAS DO SISTEMA
+# PAGINAS DO SISTEMA
 ###################
 */
 
@@ -130,16 +130,23 @@
 .table-clientes-col-nome {}
 
 .table-clientes-col-tipo-pessoa {
-	width: 140px;
+	width: 120px;
 	text-align: center;
 }
 
 .table-clientes-col-cpf-cnpj {
 	width: 140px;
+	text-align: right;
 }
 
 .table-clientes-col-telefone {
 	width: 140px;
+	text-align: right;
+}
+
+.table-clientes-col-cidade-estado  {
+	width: 140px;
+	text-align: right;
 }
 
 .table-clientes-col-acoes {
