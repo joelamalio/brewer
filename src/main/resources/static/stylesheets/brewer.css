@@ -126,3 +126,22 @@
 .table-estilos-col-acoes {
 	width: 80px;
 }
+
+.table-clientes-col-nome {}
+
+.table-clientes-col-tipo-pessoa {
+	width: 140px;
+	text-align: center;
+}
+
+.table-clientes-col-cpf-cnpj {
+	width: 140px;
+}
+
+.table-clientes-col-telefone {
+	width: 140px;
+}
+
+.table-clientes-col-acoes {
+	width: 80px;
+}
