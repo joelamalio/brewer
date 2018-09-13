@@ -2,7 +2,7 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymelaf/layout"
-	layout:decorate="layout/LayoutPadrao"
+	layout:decorate="~{layout/LayoutPadrao}"
 	xmlns:brewer="http://brewer.joelamalio.com.br">
 <head>
 	<title>Cadastro de cerveja</title>
@@ -30,7 +30,7 @@
 	</div>
 
 	<div class="container-fluid">
-		<form method="POST" th:object="${cerveja}" class="form-vertical  js-form-loading">
+		<form method="POST" th:object="${cerveja}" class="form-vertical  js-form-loading" th:action="@{/cervejas/novo}">
 
 	 		<brewer:message />
 		
