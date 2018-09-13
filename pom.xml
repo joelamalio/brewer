@@ -55,6 +55,10 @@
 		
 		<!-- Thymeleaf extras data attribute -->
 		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
+		
+		<!-- Cache - Guava -->
+		<guava.version>19.0</guava.version>
+		
 	</properties>
 
 	<build>
@@ -213,6 +217,19 @@
 			<groupId>com.github.mxab.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-data-attribute</artifactId>
 			<version>${thymeleaf-extras-data-attribute.version}</version>
+		</dependency>
+		
+		<!-- Cache - Guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+		</dependency>
+		
+		<!-- Spring Context Support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
 		</dependency>
 		
 	</dependencies>
