@@ -116,6 +116,7 @@
 	width: 80px;
 }
 
+/* ESTILOS */
 .table-estilos-col-codigo {
 	width: 30px;
 	text-align: center;
@@ -127,6 +128,7 @@
 	width: 80px;
 }
 
+/* CLIENTES */
 .table-clientes-col-nome {}
 
 .table-clientes-col-tipo-pessoa {
@@ -150,5 +152,18 @@
 }
 
 .table-clientes-col-acoes {
+	width: 80px;
+}
+
+
+/* CIDADES */
+.table-cidades-col-nome {}
+
+.table-cidades-col-estado  {
+	width: 140px;
+	text-align: right;
+}
+
+.table-cidades-col-acoes {
 	width: 80px;
 }

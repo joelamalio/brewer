@@ -1,15 +1,17 @@
 package br.com.joelamalio.brewer.repository.filter;
 
+import br.com.joelamalio.brewer.model.Estado;
+
 public class CidadeFilter {
 
-	private String Estado;
+	private Estado Estado;
 	private String nome;
 
-	public String getEstado() {
+	public Estado getEstado() {
 		return Estado;
 	}
 	
-	public void setEstado(String estado) {
+	public void setEstado(Estado estado) {
 		Estado = estado;
 	}
 	

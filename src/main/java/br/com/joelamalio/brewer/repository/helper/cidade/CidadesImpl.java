@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -35,6 +36,7 @@ public class CidadesImpl implements CidadesQueries {
 		
 		paginacaoUtil.preparar(criteria, pageable);
 		adicionarFiltro(filter, criteria);
+		criteria.createAlias("estado", "e", JoinType.INNER_JOIN);
 		
 		return new PageImpl<Cidade>(criteria.list(), pageable, total(filter));
 	}
@@ -50,6 +52,9 @@ public class CidadesImpl implements CidadesQueries {
 		if (filter != null) {
 			if (!StringUtils.isEmpty(filter.getNome())) {
 				criteria.add(Restrictions.ilike("nome", filter.getNome(), MatchMode.ANYWHERE));
+			}
+			if (filter.getEstado() != null) {
+				criteria.add(Restrictions.eq("estado", filter.getEstado()));
 			}
  		}
 	}
