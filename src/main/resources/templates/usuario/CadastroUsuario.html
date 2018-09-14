@@ -2,7 +2,8 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymelaf/layout"
-	layout:decorate="layout/LayoutPadrao">
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:brewer="http://brewer.joelamalio.com.br">
 <head>
 	<title>Cadastro de usuário</title>
 	
@@ -20,17 +21,19 @@
 
 	<div class="container-fluid">
 
-		<form method="POST" th:object="${usuario}" class="form-vertical  js-form-loading">
+		<form method="POST" th:object="${usuario}" class="form-vertical">
 		
-			<div class="form-group">
+			<brewer:message />
+		
+			<div class="form-group bw-required" brewer:classforerror="nome">
 				<label for="nome">Nome</label>
-				<input id="nome" type="text" class="form-control"/>
+				<input id="nome" type="text" class="form-control" th:field="*{nome}" />
 			</div>
 			
 			<div class="row">
-				<div class="col-sm-6 form-group">
+				<div class="col-sm-6 form-group bw-required" brewer:classforerror="email">
 					<label for="email">E-mail</label>
-					<input id="email" type="text" class="form-control"/>
+					<input id="email" type="text" class="form-control"  th:field="*{email}" />
 				</div>
 	
 				<div class="col-sm-3 form-group">
@@ -40,35 +43,35 @@
 			</div>
 			
 			<div class="row">
-				<div class="col-sm-3 form-group">
+				<div class="col-sm-3 form-group" brewer:classforerror="senha">
 					<label for="senha">Senha</label>
-					<input id="senha" type="password" class="form-control"/>
+					<input id="senha" type="password" class="form-control" th:field="*{senha}" />
 				</div>
 	
-				<div class="col-sm-3 form-group">
+				<div class="col-sm-3 form-group" brewer:classforerror="confirmacaoSenha">
 					<label for="confirmacaoSenha">Confirmação de senha</label>
-					<input id="confirmacaoSenha" type="text" class="form-control"/>
+					<input id="confirmacaoSenha" type="text" class="form-control" th:field="*{confirmacaoSenha}" />
 				</div>
 	
 				<div class="col-sm-3 form-group">
 					<label for="status">Status</label>
 					<div>
 						<input name="status" type="checkbox" class="js-status" data-size="small" data-off-color="danger" 
-							data-on-text="Ativo" data-off-text="Inativo" />
+							data-on-text="Ativo" data-off-text="Inativo" th:field="*{ativo}" />
 					</div>
 				</div>
 			</div>
 			
 			<div class="row">
-				<div class="col-sm-3 form-group">
-					<label for="grupos">Grupos</label>
+				<div class="col-sm-6 form-group bw-required">
+					<label class="control-label">Grupos</label>
 					<div>
 						<div class="checkbox checkbox-inline">
-							<input name="grupos" type="checkbox" class="form-control"/>
+							<input type="checkbox" class="form-control" />
 							<label>Administrador</label>
 						</div>
 						<div class="checkbox checkbox-inline">
-							<input name="grupos" type="checkbox" class="form-control"/>
+							<input type="checkbox" class="form-control" />
 							<label>Vendedor</label>
 						</div>
 					</div>

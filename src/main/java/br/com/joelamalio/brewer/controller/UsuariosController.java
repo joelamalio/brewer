@@ -3,30 +3,31 @@ package br.com.joelamalio.brewer.controller;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.joelamalio.brewer.model.Usuario;
 
 @Controller
+@RequestMapping("/usuarios")
 public class UsuariosController {
 	
-	@RequestMapping("/usuarios/novo")
-	public String novo(Usuario usuario) {
-		return "usuario/CadastroUsuario";
+	@RequestMapping("/novo")
+	public ModelAndView novo(Usuario usuario) {
+		return new ModelAndView("usuario/CadastroUsuario");
 	}
 	
-	@RequestMapping(value = "/usuarios/novo", method = RequestMethod.POST)
-	public String cadastrar(@Valid Usuario usuario, BindingResult result, Model model, RedirectAttributes attributes) {
+	@PostMapping(value = "/novo")
+	public ModelAndView cadastrar(@Valid Usuario usuario, BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors()) {			
 			return novo(usuario);
 		}
 		
 		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso!");
-		return "redirect:/usuario/novo";
+		return new ModelAndView("redirect:/usuario/novo");
 	}
 	
 }
