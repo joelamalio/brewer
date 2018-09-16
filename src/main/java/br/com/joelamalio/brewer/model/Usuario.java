@@ -52,7 +52,7 @@ public class Usuario implements Serializable {
 	private List<Grupo> grupos;
 
 	@Column(name = "data_nascimento")
-	private LocalDate datanascimento;
+	private LocalDate dataNascimento;
 
 	public Long getCodigo() {
 		return codigo;
@@ -102,12 +102,12 @@ public class Usuario implements Serializable {
 		this.ativo = ativo;
 	}
 
-	public LocalDate getDatanascimento() {
-		return datanascimento;
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public void setDatanascimento(LocalDate datanascimento) {
-		this.datanascimento = datanascimento;
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	@Override
