@@ -1,9 +1,14 @@
 package br.com.joelamalio.brewer.security;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,7 +19,7 @@ import br.com.joelamalio.brewer.model.Usuario;
 import br.com.joelamalio.brewer.repository.Usuarios;
 
 @Service
-public class AppUseDetailsService implements UserDetailsService {
+public class AppUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private Usuarios usuarios;
@@ -24,7 +29,16 @@ public class AppUseDetailsService implements UserDetailsService {
 		Optional<Usuario> usuarioOptional = usuarios.porEmailEAtivo(email);
 		Usuario usuario = usuarioOptional.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha incorretos"));
 		
-		return new User(usuario.getEmail(), usuario.getSenha(), new HashSet<>());
+		return new User(usuario.getEmail(), usuario.getSenha(), getPersmissoes(usuario));
+	}
+
+	private Collection<? extends GrantedAuthority> getPersmissoes(Usuario usuario) {
+		Set<SimpleGrantedAuthority> authorities = new HashSet<SimpleGrantedAuthority>() ;
+		List<String> permissoes = usuarios.permissoes(usuario);
+		
+		permissoes.forEach(p -> authorities.add(new SimpleGrantedAuthority(p.toUpperCase())));
+		
+		return authorities;
 	}
 
 }

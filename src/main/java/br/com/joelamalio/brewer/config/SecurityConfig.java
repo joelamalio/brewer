@@ -12,10 +12,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import br.com.joelamalio.brewer.security.AppUseDetailsService;
+import br.com.joelamalio.brewer.security.AppUserDetailsService;
 
 @EnableWebSecurity
-@ComponentScan(basePackageClasses = AppUseDetailsService.class)
+@ComponentScan(basePackageClasses = AppUserDetailsService.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -34,6 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+		.antMatchers("/cidades/nova").hasRole("CADASTRAR_CIDADE")
+		.antMatchers("/usuarios/**").hasRole("CADASTRAR_USUARIO")
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/login").permitAll()
 		.and().csrf().disable();
