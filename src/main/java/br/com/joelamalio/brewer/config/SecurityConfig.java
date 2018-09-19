@@ -50,7 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.accessDeniedPage("/403")
 			.and()
 		.sessionManagement()
-			.invalidSessionUrl("/login");
+			.invalidSessionUrl("/login")
+			.and()
+		.csrf().disable();
 	}
 	
 	@Bean
