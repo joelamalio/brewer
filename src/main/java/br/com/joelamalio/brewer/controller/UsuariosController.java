@@ -42,14 +42,14 @@ public class UsuariosController {
 		try {
 			cadastroUsuarioService.salvar(usuario);
 		} catch(EmailUsuarioJaCadastradoException e) {
-			result.rejectValue("nome", e.getMessage(), e.getMessage());
+			result.rejectValue("email", e.getMessage(), e.getMessage());
 			return novo(usuario);
 		} catch(SenhaObrigatoriaUsuarioException e) {
 			result.rejectValue("senha", e.getMessage(), e.getMessage());
 			return novo(usuario);
 		}
 		
-		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso!");
+		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso");
 		return new ModelAndView("redirect:/usuarios/novo");
 	}
 	
