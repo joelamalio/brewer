@@ -168,6 +168,22 @@
 	width: 80px;
 }
 
+
+/* CIDADES */
+.table-usuarios-col-nome {}
+
+.table-usuarios-col-email  {
+	width: 200px;
+}
+
+.table-usuarios-col-status {
+	width: 140px;
+}
+
+.table-usuarios-col-acoes {
+	width: 80px;
+}
+
 /*
 ######################################
 # CUSTOMIZAÇÃO DE COMPONENTES
