@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
@@ -15,7 +16,6 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
-import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -57,11 +57,12 @@ public class UsuariosImpl implements UsuariosQueries {
 		Criteria criteria = em.unwrap(Session.class).createCriteria(Usuario.class);
 		
 		paginacaoUtil.preparar(criteria, pageable);
-		
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		adicionarFiltro(filter, criteria);
+		
+		List<Usuario> filtrados = criteria.list();
+		filtrados.forEach(u -> Hibernate.initialize(u.getGrupos()));
 
-		return new PageImpl<Usuario>(criteria.list(), pageable, total(filter));
+		return new PageImpl<Usuario>(filtrados, pageable, total(filter));
 	}
 	
 	private Long total(UsuarioFilter filter) {
@@ -81,7 +82,6 @@ public class UsuariosImpl implements UsuariosQueries {
 				criteria.add(Restrictions.ilike("email", filter.getEmail(), MatchMode.START));
 			}
 			
-			criteria.createAlias("grupos", "g", JoinType.LEFT_OUTER_JOIN);
 			if (filter.getGrupos() != null && !filter.getGrupos().isEmpty()) {
 				List<Criterion> subqueries = new ArrayList<Criterion>();
 				for (Long codigoGrupo : filter.getGrupos().stream().mapToLong(Grupo::getCodigo).toArray()) {
