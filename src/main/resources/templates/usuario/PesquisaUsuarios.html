@@ -40,6 +40,20 @@
 					<input id="email" type="text" class="form-control" th:field="*{email}" />
 				</div>
 			</div>
+			
+			<div class="row">
+				<div class="form-group col-sm-12">
+					<label for="nome" class="control-label">Grupos</label>
+					<div>
+						<th:block th:each="grupo : ${grupos}">
+							<div class="checkbox checkbox-inline" >
+								<input type="checkbox" th:value="${grupo.codigo}" th:field="*{grupos}" />
+								<label th:for="${#ids.prev('grupos')}" th:text="${grupo.nome}">Administrador</label>
+							</div>
+						</th:block>
+					</div>
+				</div>
+			</div>
 	
 			<div class="form-group">
 				<button class="btn  btn-primary" type="submit">Pesquisar</button>
@@ -56,6 +70,7 @@
 						<th class="table-usuarios-col-email">
 							<brewer:order page="${pagina}" field="email" text="E-mail" /> 
 						</th>
+						<th class="table-usuarios-col-grupos">Grupo</th>
 						<th class="table-usuarios-col-status">Status</th>
 						<th class="table-usuarios-col-acoes"></th>
 					</tr>
@@ -64,7 +79,10 @@
 					<tr th:each="usuario : ${pagina.conteudo}">
 						<td th:text="${usuario.nome}">Admin</td>
 						<td th:text="${usuario.email}">admin@brewer.com</td>
-						<td th:text="${usuario.ativo}">Ativo</td>
+						<td>
+							<span th:each="grupo : ${usuario.grupos}" th:text="|${grupo.nome}${grupoStat.last ? '' : ', '}|"></span>
+						</td>
+						<td th:text="${usuario.ativo ? 'Ativo' : 'Inativo'}">Ativo</td>
 						<td class="text-center">
 							<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar"> 
 								<i class="glyphicon glyphicon-pencil"></i>
