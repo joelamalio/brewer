@@ -42,4 +42,9 @@ public class CadastroUsuarioService {
 		return usuarios.saveAndFlush(usuario);
 	}
 
+	@Transactional
+	public void alterarStatus(Long[] codigos, StatusUsuario statusUsuario) {
+		statusUsuario.executar(codigos, usuarios);
+	}
+
 }

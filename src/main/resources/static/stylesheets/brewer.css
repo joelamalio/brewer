@@ -170,13 +170,17 @@
 
 
 /* CIDADES */
+.table-usuarios-col-status {
+	width: 30px;
+}
+
 .table-usuarios-col-nome {}
 
 .table-usuarios-col-email  {
 	width: 200px;
 }
 
-.table-usuarios-col-status {
+.table-usuarios-col-status1 {
 	width: 140px;
 }
 

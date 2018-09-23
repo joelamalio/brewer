@@ -5,6 +5,7 @@ import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.HttpPutFormContentFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import br.com.joelamalio.brewer.config.JpaConfig;
@@ -35,7 +36,9 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		characterEncodingFilter.setEncoding("UTF-8");
 		characterEncodingFilter.setForceEncoding(true);
 		
-		return new Filter[] { characterEncodingFilter };
+		HttpPutFormContentFilter httpPutFormContentFilter = new HttpPutFormContentFilter();
+		
+		return new Filter[] { characterEncodingFilter, httpPutFormContentFilter };
 	}
 	
 	@Override

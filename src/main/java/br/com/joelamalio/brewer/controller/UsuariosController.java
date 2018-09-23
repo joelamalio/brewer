@@ -6,11 +6,15 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,6 +24,7 @@ import br.com.joelamalio.brewer.repository.Grupos;
 import br.com.joelamalio.brewer.repository.Usuarios;
 import br.com.joelamalio.brewer.repository.filter.UsuarioFilter;
 import br.com.joelamalio.brewer.service.CadastroUsuarioService;
+import br.com.joelamalio.brewer.service.StatusUsuario;
 import br.com.joelamalio.brewer.service.exception.EmailUsuarioJaCadastradoException;
 import br.com.joelamalio.brewer.service.exception.SenhaObrigatoriaUsuarioException;
 
@@ -73,6 +78,12 @@ public class UsuariosController {
 		mv.addObject("pagina", paginaWrapper);
 		
 		return mv;
+	}
+	
+	@PutMapping("/status")
+	@ResponseStatus(HttpStatus.OK)
+	public void atualizarStatus(@RequestParam("codigos[]") Long[] codigos, @RequestParam("status") StatusUsuario statusUsuario) {
+		cadastroUsuarioService.alterarStatus(codigos, statusUsuario);
 	}
 	
 }
