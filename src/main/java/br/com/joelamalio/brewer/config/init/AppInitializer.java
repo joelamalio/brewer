@@ -38,7 +38,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		
 		HttpPutFormContentFilter httpPutFormContentFilter = new HttpPutFormContentFilter();
 		
-		return new Filter[] { characterEncodingFilter, httpPutFormContentFilter };
+		return new Filter[] { httpPutFormContentFilter, characterEncodingFilter };
 	}
 	
 	@Override

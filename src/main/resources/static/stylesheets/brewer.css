@@ -172,6 +172,7 @@
 /* CIDADES */
 .table-usuarios-col-status {
 	width: 30px;
+	text-align: center;
 }
 
 .table-usuarios-col-nome {}
