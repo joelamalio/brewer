@@ -1,5 +1,7 @@
 package br.com.joelamalio.brewer.repository.helper.cerveja;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import br.com.joelamalio.brewer.dto.CervejaDTO;
 import br.com.joelamalio.brewer.model.Cerveja;
 import br.com.joelamalio.brewer.repository.filter.CervejaFilter;
 import br.com.joelamalio.brewer.repository.paginacao.PaginacaoUtil;
@@ -80,6 +83,18 @@ public class CervejasImpl implements CervejasQueries {
 
 	private boolean isEstiloPresente(CervejaFilter filter) {
 		return filter.getEstilo() != null && filter.getEstilo().getCodigo() != null;
+	}
+
+	@Override
+	public List<CervejaDTO> porSkuOuNome(String skuOuNome) {
+		StringBuilder jpql = new StringBuilder();
+		jpql.append(" SELECT new br.com.joelamalio.brewer.dto.CervejaDTO(codigo, sku, nome, origem, valor, foto) ");
+		jpql.append(" FROM Cerveja ");
+		jpql.append(" WHERE lower(sku) LIKE lower(:skuOuNome) or lower(nome) = lower(:skuOuNome) ");
+		List<CervejaDTO> cervejasFiltradas = manager.createQuery(jpql.toString(), CervejaDTO.class)
+				.setParameter("skuOuNome", skuOuNome.concat("%")) 
+				.getResultList();
+		return cervejasFiltradas;
 	}
 
 }

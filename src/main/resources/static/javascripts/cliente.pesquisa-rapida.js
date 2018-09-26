@@ -15,7 +15,6 @@ Brewer.PesquisaRapidaCliente = (function() {
 	PesquisaRapidaCliente.prototype.iniciar = function() {
 		this.pesquisaRapidaBtn.on('click', onPesquisaRapidaClicado.bind(this));
 		this.pesquisaRapidaClientesModal.on('shown.bs.modal', onModalShow.bind(this));
-
 	}
 	
 	function onModalShow() {
