@@ -90,7 +90,7 @@ public class CervejasImpl implements CervejasQueries {
 		StringBuilder jpql = new StringBuilder();
 		jpql.append(" SELECT new br.com.joelamalio.brewer.dto.CervejaDTO(codigo, sku, nome, origem, valor, foto) ");
 		jpql.append(" FROM Cerveja ");
-		jpql.append(" WHERE lower(sku) LIKE lower(:skuOuNome) or lower(nome) = lower(:skuOuNome) ");
+		jpql.append(" WHERE lower(sku) LIKE lower(:skuOuNome) or lower(nome) like lower(:skuOuNome) ");
 		List<CervejaDTO> cervejasFiltradas = manager.createQuery(jpql.toString(), CervejaDTO.class)
 				.setParameter("skuOuNome", skuOuNome.concat("%")) 
 				.getResultList();
