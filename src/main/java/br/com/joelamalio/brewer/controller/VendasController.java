@@ -30,7 +30,6 @@ public class VendasController {
 	public ModelAndView adicionarItem(Long codigoCerveja) {
 		Cerveja cerveja = cervejas.findOne(codigoCerveja);
 		tabelaItensVenda.adicionarItem(cerveja, 1);
-		System.out.println(">>> total de itens: " + tabelaItensVenda.total());
 		
 		ModelAndView mv = new ModelAndView("venda/TabelaItensVenda");
 		mv.addObject("itens", tabelaItensVenda.getItens());

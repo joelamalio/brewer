@@ -17,7 +17,7 @@
 			<div class="bw-tabela-cerveja-valor-pequeno">
 				<input type="text" maxlength="3" 
 					class="bw-tabela-cerveja-campo-quantidade" 
-					value="1" />
+					th:value="${item.quantidade}" />
 				<span>x R$[[${{item.valorUnitario}}]]</span>
 			</div>
 			<div class="bw-tabela-cerveja-valor-grande">R$R$[[${{item.valorTotal}}]]</div>
