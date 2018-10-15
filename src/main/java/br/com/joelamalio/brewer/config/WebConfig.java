@@ -44,12 +44,12 @@ import br.com.joelamalio.brewer.controller.converter.CidadeConverter;
 import br.com.joelamalio.brewer.controller.converter.EstadoConverter;
 import br.com.joelamalio.brewer.controller.converter.EstiloConverter;
 import br.com.joelamalio.brewer.controller.converter.GrupoConverter;
-import br.com.joelamalio.brewer.session.TabelaItensVenda;
+import br.com.joelamalio.brewer.session.TabelasItensSession;
 import br.com.joelamalio.brewer.thymeleaf.BrewerDialect;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
-@ComponentScan(basePackageClasses = { CervejasController.class, TabelaItensVenda.class })
+@ComponentScan(basePackageClasses = { CervejasController.class, TabelasItensSession.class })
 @EnableWebMvc
 @EnableSpringDataWebSupport
 @EnableCaching

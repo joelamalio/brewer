@@ -1,4 +1,4 @@
-package br.com.joelamalio.brewer.venda;
+package br.com.joelamalio.brewer.session;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,7 +16,7 @@ public class TabelaItensVendaTest {
 	
 	@Before
 	public void setUp() {
-		this.tabelaItensVenda = new TabelaItensVenda();
+		this.tabelaItensVenda = new TabelaItensVenda("1");
 	}
 	
 	@Test
