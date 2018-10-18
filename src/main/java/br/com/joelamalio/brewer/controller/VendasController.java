@@ -2,7 +2,11 @@ package br.com.joelamalio.brewer.controller;
 
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -18,10 +22,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.joelamalio.brewer.controller.page.PageWrapper;
 import br.com.joelamalio.brewer.controller.validator.VendaValidator;
 import br.com.joelamalio.brewer.model.Cerveja;
+import br.com.joelamalio.brewer.model.StatusVenda;
+import br.com.joelamalio.brewer.model.TipoPessoa;
 import br.com.joelamalio.brewer.model.Venda;
 import br.com.joelamalio.brewer.repository.Cervejas;
+import br.com.joelamalio.brewer.repository.Vendas;
+import br.com.joelamalio.brewer.repository.filter.VendaFilter;
 import br.com.joelamalio.brewer.security.UsuarioSistema;
 import br.com.joelamalio.brewer.service.CadastroVendaService;
 import br.com.joelamalio.brewer.session.TabelasItensSession;
@@ -41,6 +50,9 @@ public class VendasController {
 	
 	@Autowired
 	private VendaValidator vendaValidator;
+	
+	@Autowired
+	private Vendas vendas;
 	
 	@InitBinder("venda")
 	public void inicializarValidador(WebDataBinder binder) {
@@ -123,6 +135,18 @@ public class VendasController {
 	public ModelAndView excluirItem(@PathVariable("codigoCerveja") Cerveja cerveja, @PathVariable("uuid") String uuid) {
 		tabelaItens.excluirItem(uuid, cerveja);
 		return mvTabelaItensVenda(uuid);
+	}
+	
+	@GetMapping
+	public ModelAndView pesquisar(VendaFilter vendaFilter,
+			@PageableDefault(size = 3) Pageable pageable, HttpServletRequest httpServletRequest) {
+		ModelAndView mv = new ModelAndView("/venda/PesquisaVendas");
+		mv.addObject("listaStatus", StatusVenda.values());
+		mv.addObject("tiposPessoa", TipoPessoa.values());
+		
+		PageWrapper<Venda> paginaWrapper = new PageWrapper<>(vendas.filtrar(vendaFilter, pageable), httpServletRequest);
+		mv.addObject("pagina", paginaWrapper);
+		return mv;
 	}
 	
 	private ModelAndView mvTabelaItensVenda(String uuid) {
