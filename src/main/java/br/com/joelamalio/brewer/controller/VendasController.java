@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.joelamalio.brewer.controller.page.PageWrapper;
 import br.com.joelamalio.brewer.controller.validator.VendaValidator;
+import br.com.joelamalio.brewer.mail.Mailer;
 import br.com.joelamalio.brewer.model.Cerveja;
 import br.com.joelamalio.brewer.model.StatusVenda;
 import br.com.joelamalio.brewer.model.TipoPessoa;
@@ -53,6 +54,9 @@ public class VendasController {
 	
 	@Autowired
 	private Vendas vendas;
+	
+	@Autowired
+	private Mailer mailer;
 	
 	@InitBinder("venda")
 	public void inicializarValidador(WebDataBinder binder) {
@@ -113,6 +117,8 @@ public class VendasController {
 		venda.setUsuario(usuarioSistema.getUsuario());
 		
 		cadastroVendaService.salvar(venda);
+		mailer.enviar();
+		
 		attributes.addFlashAttribute("mensagem", "Venda salva e e-mail enviado");
 		return new ModelAndView("redirect:/vendas/nova");
 	}
