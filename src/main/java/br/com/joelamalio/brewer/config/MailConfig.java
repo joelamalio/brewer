@@ -29,7 +29,7 @@ public class MailConfig {
 		mailSender.setHost("smtp.sendgrid.net");
 		mailSender.setPort(587);
 		mailSender.setUsername(env.getProperty("email.username"));
-		mailSender.setPassword(env.getProperty("SENDGRID_PASSWORD"));
+		mailSender.setPassword(env.getProperty("email.password"));
 
 		Properties props = new Properties();
 		props.put("mail.transport.protocol", "smtp");
@@ -42,5 +42,5 @@ public class MailConfig {
 
 		return mailSender;
 	}
-
+	
 }
