@@ -125,7 +125,9 @@
 							<a class="btn  btn-link  btn-xs  js-tooltip" title="Editar"> 
 								<i class="glyphicon glyphicon-pencil"></i>
 							</a>
-							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir">
+							<a class="btn  btn-link  btn-xs  js-tooltip  js-exclusao-btn" title="Excluir" href="#" 
+									data:url="@{/cervejas/{codigo}(codigo=${cerveja.codigo})}"
+									data:objeto="${cerveja.nome}">
 								<i class="glyphicon glyphicon-remove"></i>
 							</a>
 						</td>
