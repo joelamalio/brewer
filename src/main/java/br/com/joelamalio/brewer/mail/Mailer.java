@@ -70,7 +70,7 @@ public class Mailer {
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 			helper.setFrom(from.getAddress());
 			helper.setTo(venda.getCliente().getEmail());
-			helper.setSubject("Brewer - Venda realizada");
+			helper.setSubject(String.format("Brewer - Venda nº %d", venda.getCodigo()));
 			helper.setText(email, true);
 			
 			helper.addInline("logo", new ClassPathResource("static/images/logo-gray.png"));
