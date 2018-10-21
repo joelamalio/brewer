@@ -141,7 +141,7 @@ public class Usuario implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((ativo == null) ? 0 : ativo.hashCode());
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		return result;
 	}
 
@@ -154,10 +154,10 @@ public class Usuario implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		if (ativo == null) {
-			if (other.ativo != null)
+		if (codigo == null) {
+			if (other.codigo != null)
 				return false;
-		} else if (!ativo.equals(other.ativo))
+		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
 	}
