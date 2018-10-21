@@ -217,6 +217,14 @@ public class Venda {
 				.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
 		return valorTotal;
 	}
+	
+	public boolean isSalvarPermitido() {
+		return !isSalvarProibido();
+	}
+	
+	public boolean isSalvarProibido() {
+		return status.equals(StatusVenda.CANCELADA);
+	}
 
 	@Override
 	public int hashCode() {
