@@ -26,6 +26,7 @@ import br.com.joelamalio.brewer.controller.page.PageWrapper;
 import br.com.joelamalio.brewer.controller.validator.VendaValidator;
 import br.com.joelamalio.brewer.mail.Mailer;
 import br.com.joelamalio.brewer.model.Cerveja;
+import br.com.joelamalio.brewer.model.ItemVenda;
 import br.com.joelamalio.brewer.model.StatusVenda;
 import br.com.joelamalio.brewer.model.TipoPessoa;
 import br.com.joelamalio.brewer.model.Venda;
@@ -67,9 +68,7 @@ public class VendasController {
 	public ModelAndView nova(Venda venda) {
 		ModelAndView mv = new ModelAndView("venda/CadastroVenda");
 		
-		if (StringUtils.isEmpty(venda.getUuid())) {
-			venda.setUuid(UUID.randomUUID().toString());
-		}
+		setUuid(venda);
 		
 		mv.addObject("itens", venda.getItens());
 		mv.addObject("valorFrete", venda.getValorFrete());
@@ -155,6 +154,20 @@ public class VendasController {
 		return mv;
 	}
 	
+	@GetMapping("/{codigo}")
+	public ModelAndView editar(@PathVariable Long codigo) {
+		Venda venda = vendas.buscarComItens(codigo);
+		
+		setUuid(venda);
+		for (ItemVenda item : venda.getItens()) {
+			tabelaItens.adicionarItem(venda.getUuid(), item.getCerveja(), item.getQuantidade());
+		}
+		
+		ModelAndView mv = nova(venda);
+		mv.addObject(venda);
+		return mv;
+	}
+	
 	private ModelAndView mvTabelaItensVenda(String uuid) {
 		ModelAndView mv = new ModelAndView("venda/TabelaItensVenda");
 		mv.addObject("itens", tabelaItens.getItens(uuid));
@@ -167,6 +180,12 @@ public class VendasController {
 		venda.calcularValorTotal();
 		
 		vendaValidator.validate(venda, result);
+	}
+	
+	private void setUuid(Venda venda) {
+		if (StringUtils.isEmpty(venda.getUuid())) {
+			venda.setUuid(UUID.randomUUID().toString());
+		}
 	}
 
 }
