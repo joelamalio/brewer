@@ -41,6 +41,23 @@ public class ClientesImpl implements ClientesQueries {
 
 		return new PageImpl<Cliente>(criteria.list(), pageable, total(filter));
 	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public Cliente buscarCompleto(Long codigo) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cliente.class);
+		criteria.createAlias("endereco.cidade", "c", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("c.estado", "e", JoinType.LEFT_OUTER_JOIN);
+		criteria.add(Restrictions.eq("codigo", codigo));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		Cliente cliente = (Cliente) criteria.uniqueResult();
+		
+		if (cliente.getEndereco() != null && cliente.getEndereco().getCidade() != null) {
+			cliente.getEndereco().setEstado(cliente.getEndereco().getCidade().getEstado());
+		}
+		
+		return cliente;
+	}
 
 	private Long total(ClienteFilter filter) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cliente.class);

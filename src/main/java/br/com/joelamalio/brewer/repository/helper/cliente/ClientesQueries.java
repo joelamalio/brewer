@@ -10,4 +10,6 @@ public interface ClientesQueries {
 
 	public Page<Cliente> filtrar(ClienteFilter filter, Pageable pageable);
 	
+	public Cliente buscarCompleto(Long codigo);
+	
 }

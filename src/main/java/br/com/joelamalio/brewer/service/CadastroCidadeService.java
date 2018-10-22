@@ -35,7 +35,7 @@ public class CadastroCidadeService {
 			cidades.delete(cidade);
 			cidades.flush();
 		} catch (PersistenceException e) {
-			throw new ImpossivelExcluirEntidadeException("Impossível apagar cidade. Já foi usada em algum relacionamento.");
+			throw new ImpossivelExcluirEntidadeException("Impossível apagar cidade, pois o registro está vinculado a outro no banco de dados.");
 		}
 	}
 

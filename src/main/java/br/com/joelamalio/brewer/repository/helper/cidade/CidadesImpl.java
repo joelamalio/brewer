@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import br.com.joelamalio.brewer.model.Cidade;
-import br.com.joelamalio.brewer.model.Usuario;
 import br.com.joelamalio.brewer.repository.filter.CidadeFilter;
 import br.com.joelamalio.brewer.repository.paginacao.PaginacaoUtil;
 

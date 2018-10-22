@@ -33,7 +33,7 @@ Brewer.ComboCidade = (function() {
 		reset.call(this);
 		this.comboEstado.on('alterado', onEstadoAlterado.bind(this));
 		var codigoEstado = this.comboEstado.combo.val();
-		onEstadoAlterado.call(this, undefined, codigoEstado);
+		inicializarCidades.call(this, codigoEstado);
 	}
 	
 	function onEstadoAlterado(evento, codigoEstado) {
