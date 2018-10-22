@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import br.com.joelamalio.brewer.model.Cidade;
+import br.com.joelamalio.brewer.model.Usuario;
 import br.com.joelamalio.brewer.repository.filter.CidadeFilter;
 import br.com.joelamalio.brewer.repository.paginacao.PaginacaoUtil;
 
@@ -39,6 +40,16 @@ public class CidadesImpl implements CidadesQueries {
 		criteria.createAlias("estado", "e", JoinType.INNER_JOIN);
 		
 		return new PageImpl<Cidade>(criteria.list(), pageable, total(filter));
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public Cidade buscarComEstado(Long codigo) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cidade.class);
+		criteria.createAlias("estado", "e", JoinType.INNER_JOIN);
+		criteria.add(Restrictions.eq("codigo", codigo));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		return (Cidade) criteria.uniqueResult();
 	}
 
 	private Long total(CidadeFilter filter) {
