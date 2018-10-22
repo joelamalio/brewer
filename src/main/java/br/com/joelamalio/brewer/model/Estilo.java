@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class Estilo implements Serializable {
 	@Size(max = 15, message = "O tamanho do nome deve estar entre 1 e 15")
 	private String nome;
 	
-	@OneToMany(mappedBy = "estilo")
+	@OneToMany(mappedBy = "estilo", fetch = FetchType.LAZY)
 	private List<Cerveja> cervejas;
 
 	public Long getCodigo() {
@@ -52,6 +53,10 @@ public class Estilo implements Serializable {
 	
 	public void setCervejas(List<Cerveja> cervejas) {
 		this.cervejas = cervejas;
+	}
+	
+	public boolean isNovo() {
+		return codigo == null;
 	}
 
 	@Override

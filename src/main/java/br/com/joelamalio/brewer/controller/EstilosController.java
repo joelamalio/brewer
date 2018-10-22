@@ -10,7 +10,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +25,7 @@ import br.com.joelamalio.brewer.model.Estilo;
 import br.com.joelamalio.brewer.repository.Estilos;
 import br.com.joelamalio.brewer.repository.filter.EstiloFilter;
 import br.com.joelamalio.brewer.service.CadastroEstiloService;
+import br.com.joelamalio.brewer.service.exception.ImpossivelExcluirEntidadeException;
 import br.com.joelamalio.brewer.service.exception.NomeEstiloJaCadastradoException;
 
 @Controller
@@ -41,7 +44,7 @@ public class EstilosController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/novo", method = RequestMethod.POST)
+	@RequestMapping(value = { "/novo", "{\\d+}" }, method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Estilo estilo, BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors()) {			
 			return novo(estilo);
@@ -70,10 +73,28 @@ public class EstilosController {
 	
 	@GetMapping
 	public ModelAndView pesquisar(EstiloFilter filter, BindingResult result, 
-			@PageableDefault(size = 2) Pageable pageable, HttpServletRequest httpServletRequest) {
+			@PageableDefault(size = 10) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("estilo/PesquisaEstilos");
 		PageWrapper<Estilo> paginaWrapper = new PageWrapper<Estilo>(estilos.filtrar(filter, pageable), httpServletRequest);
 		mv.addObject("pagina", paginaWrapper);
+		return mv;
+	}
+	
+	@DeleteMapping("/{codigo}")
+	public @ResponseBody ResponseEntity<?> excluir(@PathVariable("codigo") Estilo estilo) {
+		try {
+			cadastroEstiloService.excluir(estilo);
+		} catch (ImpossivelExcluirEntidadeException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping("/{codigo}")
+	public ModelAndView editar(@PathVariable("codigo") Long codigo) {
+		Estilo estilo = estilos.findOne(codigo);
+		ModelAndView mv = novo(estilo);
+		mv.addObject(estilo);
 		return mv;
 	}
 	
