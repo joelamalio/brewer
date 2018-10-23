@@ -91,7 +91,7 @@ public class VendasController {
 		
 		venda.setUsuario(usuarioSistema.getUsuario());
 		
-		cadastroVendaService.emitir(venda);
+		cadastroVendaService.salvar(venda);
 		attributes.addFlashAttribute("mensagem", "Venda salva com sucesso");
 		return new ModelAndView("redirect:/vendas/nova");
 	}
@@ -105,7 +105,7 @@ public class VendasController {
 		
 		venda.setUsuario(usuarioSistema.getUsuario());
 		
-		cadastroVendaService.salvar(venda);
+		cadastroVendaService.emitir(venda);
 		attributes.addFlashAttribute("mensagem", "Venda emitida com sucesso");
 		return new ModelAndView("redirect:/vendas/nova");
 	}
