@@ -58,7 +58,7 @@ public class CervejasImpl implements CervejasQueries {
 	@Override
 	public EstoqueDTO obterEstoque() {
 		StringBuilder jpql = new StringBuilder();
-		jpql.append(" SELECT new br.com.joelamalio.brewer.dto.EstoqueDTO(sum(valor), count(valor)) ");
+		jpql.append(" SELECT new br.com.joelamalio.brewer.dto.EstoqueDTO(sum(valor * quantidadeEstoque), sum(quantidadeEstoque)) ");
 		jpql.append(" FROM Cerveja ");
 		return (EstoqueDTO) manager.createQuery(jpql.toString(), EstoqueDTO.class).getSingleResult();
 	}
