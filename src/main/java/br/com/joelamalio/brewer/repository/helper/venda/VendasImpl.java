@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import br.com.joelamalio.brewer.dto.VendaMes;
+import br.com.joelamalio.brewer.dto.VendaOrigem;
 import br.com.joelamalio.brewer.model.StatusVenda;
 import br.com.joelamalio.brewer.model.TipoPessoa;
 import br.com.joelamalio.brewer.model.Venda;
@@ -109,7 +110,26 @@ public class VendasImpl implements VendasQueries {
 		}
 		
 		return vendasMes;
-	}	
+	}
+	
+	@Override
+	public List<VendaOrigem> totalPorOrigem() {
+		List<VendaOrigem> vendasNacionalidade = manager.createNamedQuery("Vendas.porOrigem", VendaOrigem.class).getResultList();
+		
+		LocalDate now = LocalDate.now();
+		for (int i = 1; i <= 6; i++) {
+			String mesIdeal = String.format("%d/%02d", now.getYear(), now.getMonth().getValue());
+			
+			boolean possuiMes = vendasNacionalidade.stream().filter(v -> v.getMes().equals(mesIdeal)).findAny().isPresent();
+			if (!possuiMes) {
+				vendasNacionalidade.add(i - 1, new VendaOrigem(mesIdeal, 0, 0));
+			}
+			
+			now = now.minusMonths(1);
+		}
+		
+		return vendasNacionalidade;
+	}
 	
 	private Long total(VendaFilter filtro) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Venda.class);
