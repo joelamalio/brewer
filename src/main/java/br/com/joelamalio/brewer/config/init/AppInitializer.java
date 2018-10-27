@@ -10,6 +10,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 import br.com.joelamalio.brewer.config.JpaConfig;
 import br.com.joelamalio.brewer.config.MailConfig;
+import br.com.joelamalio.brewer.config.S3Config;
 import br.com.joelamalio.brewer.config.SecurityConfig;
 import br.com.joelamalio.brewer.config.ServiceConfig;
 import br.com.joelamalio.brewer.config.WebConfig;
@@ -18,7 +19,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] { JpaConfig.class, ServiceConfig.class, SecurityConfig.class };
+		return new Class<?>[] { JpaConfig.class, ServiceConfig.class, SecurityConfig.class, S3Config.class };
 	}
 
 	@Override
