@@ -22,6 +22,7 @@ import br.com.joelamalio.brewer.dto.EstoqueDTO;
 import br.com.joelamalio.brewer.model.Cerveja;
 import br.com.joelamalio.brewer.repository.filter.CervejaFilter;
 import br.com.joelamalio.brewer.repository.paginacao.PaginacaoUtil;
+import br.com.joelamalio.brewer.storage.FotoStorage;
 
 public class CervejasImpl implements CervejasQueries {
 
@@ -30,6 +31,9 @@ public class CervejasImpl implements CervejasQueries {
 	
 	@Autowired
 	private PaginacaoUtil paginacaoUtil; 
+
+	@Autowired
+	private FotoStorage fotoStorage; 
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -52,6 +56,9 @@ public class CervejasImpl implements CervejasQueries {
 		List<CervejaDTO> cervejasFiltradas = manager.createQuery(jpql.toString(), CervejaDTO.class)
 				.setParameter("skuOuNome", skuOuNome.concat("%")) 
 				.getResultList();
+		
+		cervejasFiltradas.forEach(c -> c.setUrlThumbnailFoto(fotoStorage.getUrl(FotoStorage.THUMBNAIL_PREFIX + c.getFoto())));
+		
 		return cervejasFiltradas;
 	}
 	
