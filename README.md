@@ -9,4 +9,4 @@ email.password={senha}
 AWS:
 AWS_ACCESS_KEY_ID={keyid}
 AWS_SECRET_ACCESS_KEY={accesskey}
-
+spring.profiles.active=local ou prod
