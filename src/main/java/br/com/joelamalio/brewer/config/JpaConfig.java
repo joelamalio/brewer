@@ -30,6 +30,7 @@ import br.com.joelamalio.brewer.repository.Cervejas;
 @EnableTransactionManagement
 public class JpaConfig {
 
+	@Profile("local")
 	@Bean
 	public DataSource dataSource() {
 		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
